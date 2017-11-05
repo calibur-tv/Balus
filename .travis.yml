@@ -9,6 +9,8 @@ before_install:
   -in id_rsa.enc -out ~/.ssh/id_rsa -d
 - chmod 600 ~/.ssh/id_rsa
 - echo -e "Host 101.132.169.136\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+script:
+- echo "hello world"
 after_success:
 - ssh -p $DEPLOY_PORT $DEPLOY_USER@$DEPLOY_HOST 'cd /var/www/docs && git pull'
 env:
