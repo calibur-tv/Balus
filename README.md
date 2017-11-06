@@ -12,3 +12,5 @@
 ## [视频资源补档列表](/upload/index)
 
 ## [番剧管理](/bangumi/admin)
+
+## [工作流程](/about/phab)
