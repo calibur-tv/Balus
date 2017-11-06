@@ -42,5 +42,3 @@ arc feather T7
 arc diff master --preview 
 ```
 它会把你当前所在的 branch 和 master 分支 diff，然后提交 preview，如图：
-![phab4](https://cdn.riuir.com/owner/phab4.png)
-会有一个链接在命令行的输出中，打开那个链接
