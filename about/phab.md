@@ -55,6 +55,7 @@ arc diff master --preview
 ```shell
 arc land
 ```
-9. 如果审核不通过，你需要切换到这个 task 的分支下，修改，然后重复执行步骤：5 -> 8
+9. 然后你要将这个 Revision 状态通过页面中的`Add Action`设置成 **closed**, 要将 task 的 status 通过`Add Action`设为 **Resolved**
+10. 如果审核不通过，你需要切换到这个 task 的分支下，修改，然后重复执行步骤：5 -> 9
 
 > 以上就是基本的工作流程，如果我有讲的模糊或者有错误的地方，记得告诉我，我会更新文档
