@@ -6,7 +6,7 @@
 1. 打开 [http://phab.riuir.com](http://phab.riuir.com)，然后注册一个新用户
 2. 完成邮箱认证并等待管理员通过注册申请
 3. 进入网站后依次进行如下操作：
-    ![phab1](https://cdn.riuir.com/owner/phab1.png)
+    ![phab1](http://cdn.riuir.com/owner/phab1.png)
 4. 这样你就已经上传了自己的 SSH key，之后就可以对代码进行提交了
 > PS：怎么生成 SSH key，相信对大家来说都不是问题
 
@@ -19,7 +19,7 @@
 arc install-certificate
 ```
 3. 然后要输入一个 Token，这个 Token 跟着下图的步骤可以获取：
-    ![phab2](https://cdn.riuir.com/owner/phab2.png)
+    ![phab2](http://cdn.riuir.com/owner/phab2.png)
 4. 至此，工作前的准备就完成了
 
 ### 开始
@@ -30,7 +30,7 @@ arc install-certificate
 arc tasks
 ```
 你会看到类似这样的返回：
-![phab3](https://cdn.riuir.com/owner/phab3.png)
+![phab3](http://cdn.riuir.com/owner/phab3.png)
 4. 看到你的 task 列表后，然后执行：
 ```shell
 arc feather T7
@@ -43,13 +43,13 @@ arc feather T7
 arc diff master --preview 
 ```
 它会把你当前所在的 branch 和 master 分支 diff，然后提交 preview，如图：
-![phab4](https://cdn.riuir.com/owner/phab4.png)
+![phab4](http://cdn.riuir.com/owner/phab4.png)
 > PS：我这边为了演示又创建了一个 task，所以图中是 T8
 然后进入图中的链接，然后进行如下操作：
 6. 如果你是第一次提交这个 task，那么选择 `Create New Revision`，否则选择你之前提交过的 Revision，新建 Revision 如图：
-![phab5](https://cdn.riuir.com/owner/phab5.png)
+![phab5](http://cdn.riuir.com/owner/phab5.png)
 7. 对网站首页做个介绍：
-![phab6](https://cdn.riuir.com/owner/phab6.png)
+![phab6](http://cdn.riuir.com/owner/phab6.png)
 如果你的 task 需要修改，那么会出现在`Ready to Update`，如果可以 land 到 master 分支，会出现在`Ready to Land`
 8. 如果审核通过可以 land，那么就进入 task 的 repo 目录下，然后切换到 task 的分支，然后执行：
 ```shell
