@@ -33,10 +33,10 @@ arc tasks
 ![phab3](http://cdn.riuir.com/owner/phab3.png)
 4. 看到你的 task 列表后，然后执行：
 ```shell
-arc feather T7
+arc feature T7
 ```
 这个**`T7`**是任务的编号，然后你就会自动 new 一个叫 T7 的 branch，现在就可以开始 coding 了
-> `注意：你在 arc feather 之前先 checkout 到 master 分支，因为你要在当前 branch 创建一个新分支`<br/>
+> `注意：你在 arc feature 之前先 checkout 到 master 分支，因为你要在当前 branch 创建一个新分支`<br/>
 > `注意：前端和后端的开发人员，除非是严重的 bug fix，不然不要直接 git push to master branch，因为 master 分支是自动部署的`
 5. 当你 coding 完之后，先将代码 push 到你的 dev 分支，比如我这边就是 T7，然后你需要运行如下命令：
 ```shell
