@@ -11,19 +11,21 @@
     }
     ```
     `userTokenString`是用户登录成功后，服务端返回的一个随机字符串，客户端需要将其存起来，做用户验证
-3. 移动端在发请求的时候，要额外携带两个参数做校验，例：
+3. 移动端在发请求的时候，要额外携带三个参数做校验，例：
     ```javascript
     requestHeader = {
       'X-Auth-Timestamp': constAuthTimestamp,
-      'X-Auth-Token': constAuthToken
+      'X-Auth-Token': constAuthToken,
+      'X-Device-Id': userDeviceUniqueId
     }
     ```
     `X-Auth-Timestamp` 和 `X-Auth-Token` 是在移动端自己生成，生成规则如下：
     ```javascript
     constAuthToken = md5('md5_salt' + constAuthTimestamp)
     ```
-    `constAuthTimestamp` 是请求发出时的时间戳
-    `md5_salt` 是加密的 key，这个 key 暂时先写死在 App 内，与服务端保持一致
+    `constAuthTimestamp` 是请求发出时的时间戳 <br/>
+    `md5_salt` 是加密的 key，这个 key 暂时先写死在 App 内，与服务端保持一致 <br/>
+    `X-Device-Id` 是移动设备的唯一识别码，用于做统计
 4. 接口的返回统一如下：
     ```javascript
     response = {
