@@ -14,3 +14,5 @@
 ## [番剧管理](/bangumi/admin)
 
 ## [工作流程](/about/phab)
+
+## [接口文档](/api/index)
