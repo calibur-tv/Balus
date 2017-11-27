@@ -20,21 +20,6 @@ response = {
 ```
 `备注：`当请求需要做 geetest 认证时，你应该将接口返回的 data 对象存起来，然后将 data 对象作为接口的一个参数
 
-#### 账号唯一性检验
-```javascript
-url = '/door/check/${method}/${access}'
-method = 'POST'
-authHeader = false
-params = {}
-response = {
-  code: 0,
-  message: [],
-  data: count('integer') 
-}
-```
-`method`是注册的方式，`phone | email`二选一，`access` 就是注册的账号，是邮箱或手机 <br/>
-`备注：`如果账号没有被占用，data 是 0，如果被占用，data 是 1
-
 #### 发送手机短信或邮箱验证码
 ```javascript
 url = '/door/send'
@@ -43,12 +28,16 @@ authHeader = false
 params = {
   method: registerMethod('required', 'phone | email'),
   access: registerAccess('required', '注册的账号，手机或邮箱'),
-  nickname: registerUsername('required', '用户的昵称')
+  nickname: registerUsername('required', '用户的昵称'),
+  mustNotRegister: registerCanUse('required', '账号必须未注册')
 }
 response = {
   code: 0,
   message: [],
   data: ''
+}
+errorResponseCode = {
+  400: ''
 }
 ```
 
