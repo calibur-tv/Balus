@@ -7,7 +7,7 @@
 url = '/door/captcha'
 method = 'POST'
 authHeader = false
-params = {}
+body = {}
 response = {
   code: 0,
   message: [],
@@ -25,7 +25,7 @@ response = {
 url = '/door/send'
 method = 'POST'
 authHeader = false
-params = {
+body = {
   method: registerMethod('required', 'phone | email'),
   access: registerAccess('required', '注册的账号，手机或邮箱'),
   nickname: registerUsername('required', '用户的昵称'),
@@ -46,7 +46,7 @@ errorResponseCode = {
 url = '/door/register'
 method = 'POST'
 authHeader = false
-params = {
+body = {
   method: registerMethod('required', 'phone | email'),
   access: registerAccess('required', '注册的账号，手机或邮箱'),
   nickname: registerUsername('required', '用户的昵称'),
@@ -71,7 +71,7 @@ errorResponseCode = {
 url = '/door/login'
 method = 'POST'
 authHeader = false
-params = {
+body = {
   method: loginMethod('required', 'phone | email'),
   access: loginAccess('required', '手机或邮箱'),
   secret: loginAccess('required', '密码'),
@@ -93,7 +93,7 @@ errorResponseCode = {
 url = '/door/user'
 method = 'POST'
 authHeader = true
-params = {}
+body = {}
 response = {
   code: 0,
   message: [],
@@ -111,7 +111,7 @@ errorResponse = {
 url = '/door/logout'
 metohd = 'POST'
 authHeader = true
-params = {}
+body = {}
 response = {
   code: 0,
   message: [],
