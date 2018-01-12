@@ -370,7 +370,15 @@ FORMAT: 1A
 
             {
                 "code": 0,
-                "data": "..."
+                "data": {
+                    "info": "视频对象",
+                    "bangumi": "番剧信息",
+                    "list": {
+                        "total": "视频总数",
+                        "repeat": "是否重排",
+                        "videos": "视频列表"
+                    }
+                }
             }
 
 + Response 404 (application/json)
