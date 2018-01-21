@@ -15,10 +15,12 @@
     requestHeader = {
       'X-Auth-Timestamp': constAuthTimestamp,
       'X-Auth-Token': constAuthToken,
-      'X-Device-Id': '手机设备唯一识别码'
+      'X-Device-Id': '手机设备唯一识别码',
+      'Accept': 'application/x.api.latest+json'
     }
     ```
     `X-Auth-Timestamp` 和 `X-Auth-Token` 是在移动端自己生成，生成规则如下：
+    `Accept`中的`latest`要替换为当前 API 的版本号，如 v1，v2...
     ```javascript
     constAuthToken = md5('md5_salt' + constAuthTimestamp)
     ```
