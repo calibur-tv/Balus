@@ -1028,7 +1028,8 @@ FORMAT: 1A
                 "data": {
                     "id": "Geetest.gt",
                     "secret": "Geetest.challenge",
-                    "access": "认证密匙"
+                    "access": "认证密匙",
+                    "expire": "时间戳"
                 }
             }
 
