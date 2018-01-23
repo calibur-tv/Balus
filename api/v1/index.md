@@ -55,7 +55,8 @@ FORMAT: 1A
                 "access": "账号",
                 "secret": "密码",
                 "authCode": "短信或邮箱验证码",
-                "inviteCode": "邀请码"
+                "inviteCode": "邀请码",
+                "geetest": "Geetest验证码对象"
             }
 
 + Response 200 (application/json)
@@ -99,7 +100,8 @@ FORMAT: 1A
             {
                 "method": "phone|email",
                 "access": "账号",
-                "secret": "密码"
+                "secret": "密码",
+                "geetest": "Geetest验证码对象"
             }
 
 + Response 200 (application/json)
@@ -168,6 +170,80 @@ FORMAT: 1A
             {
                 "code": 401,
                 "data": "未登录的用户"
+            }
+
+## 发送重置密码验证码 [POST /door/forgot]
+
+
++ Request (application/json)
+    + Body
+
+            {
+                "method": "phone|email",
+                "access": "账号",
+                "geetest": "Geetest验证码对象"
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "code": 0,
+                "data": "短信或邮件已发送"
+            }
+
++ Response 400 (application/json)
+    + Body
+
+            {
+                "code": 400,
+                "data": "请求参数错误"
+            }
+
++ Response 403 (application/json)
+    + Body
+
+            {
+                "code": 403,
+                "data": "未注册的邮箱或手机号"
+            }
+
+## 重置密码 [POST /door/reset]
+
+
++ Request (application/json)
+    + Body
+
+            {
+                "method": "phone|email",
+                "access": "账号",
+                "secret": "密码",
+                "authCode": "短信或邮箱验证码",
+                "geetest": "Geetest验证码对象"
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "code": 0,
+                "data": "短信或邮件已发送"
+            }
+
++ Response 400 (application/json)
+    + Body
+
+            {
+                "code": 400,
+                "data": "请求参数错误"
+            }
+
++ Response 403 (application/json)
+    + Body
+
+            {
+                "code": 403,
+                "data": "密码重置成功"
             }
 
 # 番剧相关接口
