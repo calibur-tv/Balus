@@ -674,6 +674,60 @@ FORMAT: 1A
                 "data": "找不到用户"
             }
 
+## 用户喜欢的帖子列表 [POST /user/${userZone}/posts/mine]
+
+
++ Request (application/json)
+    + Body
+
+            {
+                "seenIds": "看过的postIds, 用','分割的字符串",
+                "take": "获取的数量"
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "code": 0,
+                "data": "帖子列表"
+            }
+
++ Response 404 (application/json)
+    + Body
+
+            {
+                "code": 404,
+                "data": "找不到用户"
+            }
+
+## 用户收藏的帖子列表 [POST /user/${userZone}/posts/mine]
+
+
++ Request (application/json)
+    + Body
+
+            {
+                "seenIds": "看过的postIds, 用','分割的字符串",
+                "take": "获取的数量"
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "code": 0,
+                "data": "帖子列表"
+            }
+
++ Response 404 (application/json)
+    + Body
+
+            {
+                "code": 404,
+                "data": "找不到用户"
+            }
+
 ## 用户反馈 [POST /user/feedback]
 
 
@@ -995,6 +1049,46 @@ FORMAT: 1A
                 "data": "内容已删除"
             }
 
+## 收藏主题帖或取消收藏 [POST /post/${postId}/toggleMark]
+
+
++ Request (application/json)
+    + Headers
+
+            Authorization: Bearer JWT-Token
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "code": 0,
+                "data": "是否已收藏"
+            }
+
++ Response 401 (application/json)
+    + Body
+
+            {
+                "code": 401,
+                "data": "未登录的用户"
+            }
+
++ Response 403 (application/json)
+    + Body
+
+            {
+                "code": 403,
+                "data": "不能收藏自己的帖子/不是主题帖"
+            }
+
++ Response 404 (application/json)
+    + Body
+
+            {
+                "code": 404,
+                "data": "不存在的帖子"
+            }
+
 ## 删除帖子 [POST /post/${postId}/deletePost]
 
 
@@ -1104,8 +1198,7 @@ FORMAT: 1A
                 "data": {
                     "id": "Geetest.gt",
                     "secret": "Geetest.challenge",
-                    "access": "认证密匙",
-                    "expire": "时间戳"
+                    "access": "认证密匙"
                 }
             }
 
