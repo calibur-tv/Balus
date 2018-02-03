@@ -19,7 +19,7 @@ FORMAT: 1A
                 "geetest": "Geetest验证码对象"
             }
 
-+ Response 200 (application/json)
++ Response 201 (application/json)
     + Body
 
             {
@@ -31,15 +31,15 @@ FORMAT: 1A
     + Body
 
             {
-                "code": 400,
+                "code": 40003,
                 "data": "请求参数错误"
             }
 
-+ Response 403 (application/json)
++ Response 400 (application/json)
     + Body
 
             {
-                "code": 403,
+                "code": 40004,
                 "data": "已注册或未注册的账号"
             }
 
@@ -271,7 +271,7 @@ FORMAT: 1A
     + Body
 
             {
-                "code": 400,
+                "code": 40003,
                 "data": "请求参数错误"
             }
 
@@ -317,7 +317,7 @@ FORMAT: 1A
     + Body
 
             {
-                "code": 400,
+                "code": 40003,
                 "data": "请求参数错误"
             }
 
@@ -341,7 +341,7 @@ FORMAT: 1A
     + Body
 
             {
-                "code": 404,
+                "code": 40401,
                 "data": "不存在的番剧"
             }
 
@@ -364,7 +364,7 @@ FORMAT: 1A
     + Body
 
             {
-                "code": 404,
+                "code": 40401,
                 "data": "不存在的番剧"
             }
 
@@ -376,7 +376,7 @@ FORMAT: 1A
 
             Authorization: Bearer JWT-Token
 
-+ Response 200 (application/json)
++ Response 201 (application/json)
     + Body
 
             {
@@ -388,7 +388,7 @@ FORMAT: 1A
     + Body
 
             {
-                "code": 401,
+                "code": 40104,
                 "data": "用户认证失败"
             }
 
@@ -461,7 +461,7 @@ FORMAT: 1A
     + Body
 
             {
-                "code": 404,
+                "code": 40401,
                 "data": "不存在的视频资源"
             }
 
@@ -483,19 +483,13 @@ FORMAT: 1A
 
             Authorization: Bearer JWT-Token
 
-+ Response 200 (application/json)
-    + Body
-
-            {
-                "code": 0,
-                "data": ""
-            }
++ Response 204 (application/json)
 
 + Response 401 (application/json)
     + Body
 
             {
-                "code": 401,
+                "code": 40104,
                 "data": "未登录的用户"
             }
 
@@ -503,7 +497,7 @@ FORMAT: 1A
     + Body
 
             {
-                "code": 403,
+                "code": 40301,
                 "data": "今日已签到"
             }
 
@@ -521,19 +515,13 @@ FORMAT: 1A
                 "url": "图片地址"
             }
 
-+ Response 200 (application/json)
-    + Body
-
-            {
-                "code": 0,
-                "data": ""
-            }
++ Response 204 (application/json)
 
 + Response 400 (application/json)
     + Body
 
             {
-                "code": 400,
+                "code": 40003,
                 "data": "请求参数错误"
             }
 
@@ -541,7 +529,7 @@ FORMAT: 1A
     + Body
 
             {
-                "code": 401,
+                "code": 40104,
                 "data": "未登录的用户"
             }
 
@@ -565,7 +553,7 @@ FORMAT: 1A
     + Body
 
             {
-                "code": 404,
+                "code": 40401,
                 "data": "该用户不存在"
             }
 
@@ -585,19 +573,13 @@ FORMAT: 1A
                 "birthday": "以秒为单位的时间戳"
             }
 
-+ Response 200 (application/json)
-    + Body
-
-            {
-                "code": 0,
-                "data": "用户信息对象"
-            }
++ Response 204 (application/json)
 
 + Response 404 (application/json)
     + Body
 
             {
-                "code": 404,
+                "code": 40104,
                 "data": "该用户不存在"
             }
 
@@ -616,7 +598,7 @@ FORMAT: 1A
     + Body
 
             {
-                "code": 404,
+                "code": 40104,
                 "data": "该用户不存在"
             }
 
@@ -643,7 +625,7 @@ FORMAT: 1A
     + Body
 
             {
-                "code": 404,
+                "code": 40104,
                 "data": "找不到用户"
             }
 
@@ -670,7 +652,7 @@ FORMAT: 1A
     + Body
 
             {
-                "code": 404,
+                "code": 40104,
                 "data": "找不到用户"
             }
 
@@ -697,7 +679,7 @@ FORMAT: 1A
     + Body
 
             {
-                "code": 404,
+                "code": 40104,
                 "data": "找不到用户"
             }
 
@@ -724,7 +706,7 @@ FORMAT: 1A
     + Body
 
             {
-                "code": 404,
+                "code": 40104,
                 "data": "找不到用户"
             }
 
@@ -739,20 +721,96 @@ FORMAT: 1A
                 "desc": "反馈内容，最多120字"
             }
 
-+ Response 200 (application/json)
-    + Body
-
-            {
-                "code": 0,
-                "data": ""
-            }
++ Response 204 (application/json)
 
 + Response 400 (application/json)
     + Body
 
             {
-                "code": 400,
+                "code": 40003,
                 "data": "请求参数错误"
+            }
+
+## 用户消息列表 [POST /user/notifications/list]
+
+
++ Request (application/json)
+    + Body
+
+            {
+                "take": "获取个数",
+                "minId": "看过的最小id"
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "code": 0,
+                "data": "消息列表"
+            }
+
++ Response 401 (application/json)
+    + Body
+
+            {
+                "code": 40104,
+                "data": "未登录的用户"
+            }
+
+## 用户未读消息个数 [POST /user/notifications/count]
+
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "code": 0,
+                "data": "未读个数"
+            }
+
++ Response 401 (application/json)
+    + Body
+
+            {
+                "code": 40104,
+                "data": "未登录的用户"
+            }
+
+## 读取某条消息 [POST /user/notifications/read]
+
+
++ Request (application/json)
+    + Body
+
+            {
+                "id": "消息id"
+            }
+
++ Response 204 (application/json)
+
++ Response 401 (application/json)
+    + Body
+
+            {
+                "code": 40104,
+                "data": "未登录的用户"
+            }
+
++ Response 404 (application/json)
+    + Body
+
+            {
+                "code": 40401,
+                "data": "不存在的消息"
+            }
+
++ Response 403 (application/json)
+    + Body
+
+            {
+                "code": 40301,
+                "data": "没有权限进行操作"
             }
 
 # 帖子相关接口
@@ -774,7 +832,7 @@ FORMAT: 1A
                 "images": "帖子图片列表"
             }
 
-+ Response 200 (application/json)
++ Response 201 (application/json)
     + Body
 
             {
@@ -786,7 +844,7 @@ FORMAT: 1A
     + Body
 
             {
-                "code": 400,
+                "code": 40003,
                 "data": "请求参数错误"
             }
 
@@ -794,7 +852,7 @@ FORMAT: 1A
     + Body
 
             {
-                "code": 401,
+                "code": 40104,
                 "data": "未登录的用户"
             }
 
@@ -853,7 +911,7 @@ FORMAT: 1A
     + Body
 
             {
-                "code": 400,
+                "code": 40004,
                 "data": "不是主题帖"
             }
 
@@ -861,7 +919,7 @@ FORMAT: 1A
     + Body
 
             {
-                "code": 401,
+                "code": 40401,
                 "data": "不存在的帖子"
             }
 
@@ -879,7 +937,7 @@ FORMAT: 1A
                 "images": "帖子图片列表"
             }
 
-+ Response 200 (application/json)
++ Response 201 (application/json)
     + Body
 
             {
@@ -891,7 +949,7 @@ FORMAT: 1A
     + Body
 
             {
-                "code": 400,
+                "code": 40003,
                 "data": "请求参数错误"
             }
 
@@ -899,7 +957,7 @@ FORMAT: 1A
     + Body
 
             {
-                "code": 401,
+                "code": 40104,
                 "data": "未登录的用户"
             }
 
@@ -907,7 +965,7 @@ FORMAT: 1A
     + Body
 
             {
-                "code": 404,
+                "code": 40401,
                 "data": "不存在的帖子"
             }
 
@@ -924,7 +982,7 @@ FORMAT: 1A
                 "content": "回复内容，不超过50个字"
             }
 
-+ Response 200 (application/json)
++ Response 201 (application/json)
     + Body
 
             {
@@ -936,7 +994,7 @@ FORMAT: 1A
     + Body
 
             {
-                "code": 400,
+                "code": 40003,
                 "data": "请求参数错误"
             }
 
@@ -944,7 +1002,7 @@ FORMAT: 1A
     + Body
 
             {
-                "code": 401,
+                "code": 40104,
                 "data": "未登录的用户"
             }
 
@@ -952,7 +1010,7 @@ FORMAT: 1A
     + Body
 
             {
-                "code": 404,
+                "code": 40401,
                 "data": "内容已删除"
             }
 
@@ -978,7 +1036,7 @@ FORMAT: 1A
     + Body
 
             {
-                "code": 404,
+                "code": 40401,
                 "data": "不存在的帖子"
             }
 
@@ -1005,7 +1063,7 @@ FORMAT: 1A
     + Body
 
             {
-                "code": 404,
+                "code": 40401,
                 "data": "不存在的帖子"
             }
 
@@ -1017,7 +1075,7 @@ FORMAT: 1A
 
             Authorization: Bearer JWT-Token
 
-+ Response 200 (application/json)
++ Response 201 (application/json)
     + Body
 
             {
@@ -1029,7 +1087,7 @@ FORMAT: 1A
     + Body
 
             {
-                "code": 401,
+                "code": 40104,
                 "data": "未登录的用户"
             }
 
@@ -1037,7 +1095,7 @@ FORMAT: 1A
     + Body
 
             {
-                "code": 403,
+                "code": 40301,
                 "data": "不能给自己点赞/金币不足/请求错误"
             }
 
@@ -1045,7 +1103,7 @@ FORMAT: 1A
     + Body
 
             {
-                "code": 404,
+                "code": 40401,
                 "data": "内容已删除"
             }
 
@@ -1057,7 +1115,7 @@ FORMAT: 1A
 
             Authorization: Bearer JWT-Token
 
-+ Response 200 (application/json)
++ Response 201 (application/json)
     + Body
 
             {
@@ -1069,7 +1127,7 @@ FORMAT: 1A
     + Body
 
             {
-                "code": 401,
+                "code": 40104,
                 "data": "未登录的用户"
             }
 
@@ -1077,7 +1135,7 @@ FORMAT: 1A
     + Body
 
             {
-                "code": 403,
+                "code": 40301,
                 "data": "不能收藏自己的帖子/不是主题帖"
             }
 
@@ -1085,7 +1143,7 @@ FORMAT: 1A
     + Body
 
             {
-                "code": 404,
+                "code": 40401,
                 "data": "不存在的帖子"
             }
 
@@ -1097,19 +1155,13 @@ FORMAT: 1A
 
             Authorization: Bearer JWT-Token
 
-+ Response 200 (application/json)
-    + Body
-
-            {
-                "code": 0,
-                "data": ""
-            }
++ Response 204 (application/json)
 
 + Response 401 (application/json)
     + Body
 
             {
-                "code": 401,
+                "code": 40104,
                 "data": "未登录的用户"
             }
 
@@ -1117,7 +1169,7 @@ FORMAT: 1A
     + Body
 
             {
-                "code": 403,
+                "code": 40301,
                 "data": "权限不足"
             }
 
@@ -1125,7 +1177,7 @@ FORMAT: 1A
     + Body
 
             {
-                "code": 404,
+                "code": 40401,
                 "data": "不存在的帖子"
             }
 
@@ -1142,19 +1194,13 @@ FORMAT: 1A
                 "commentId": "评论的id"
             }
 
-+ Response 200 (application/json)
-    + Body
-
-            {
-                "code": 0,
-                "data": ""
-            }
++ Response 204 (application/json)
 
 + Response 401 (application/json)
     + Body
 
             {
-                "code": 401,
+                "code": 40104,
                 "data": "未登录的用户"
             }
 
@@ -1162,7 +1208,7 @@ FORMAT: 1A
     + Body
 
             {
-                "code": 403,
+                "code": 40301,
                 "data": "权限不足"
             }
 
@@ -1170,7 +1216,7 @@ FORMAT: 1A
     + Body
 
             {
-                "code": 404,
+                "code": 40401,
                 "data": "不存在的评论"
             }
 
@@ -1225,7 +1271,7 @@ FORMAT: 1A
     + Body
 
             {
-                "code": 401,
+                "code": 40104,
                 "data": "未登录的用户"
             }
 
