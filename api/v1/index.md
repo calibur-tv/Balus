@@ -32,7 +32,8 @@ FORMAT: 1A
 
             {
                 "code": 40003,
-                "data": "请求参数错误"
+                "message": "请求参数错误",
+                "data": "错误详情"
             }
 
 + Response 400 (application/json)
@@ -40,7 +41,8 @@ FORMAT: 1A
 
             {
                 "code": 40004,
-                "data": "已注册或未注册的账号"
+                "message": "已注册或未注册的账号",
+                "data": ""
             }
 
 ## 用户注册 [POST /door/register]
@@ -72,7 +74,8 @@ FORMAT: 1A
 
             {
                 "code": 400,
-                "data": "请求参数错误"
+                "message": "请求参数错误",
+                "data": "错误详情"
             }
 
 + Response 401 (application/json)
@@ -80,7 +83,8 @@ FORMAT: 1A
 
             {
                 "code": 401,
-                "data": "验证码过期，请重新获取"
+                "message": "验证码过期，请重新获取",
+                "data": ""
             }
 
 + Response 403 (application/json)
@@ -88,7 +92,8 @@ FORMAT: 1A
 
             {
                 "code": 403,
-                "data": "该手机或邮箱已绑定另外一个账号"
+                "message": "该手机或邮箱已绑定另外一个账号",
+                "data": ""
             }
 
 ## 用户登录 [POST /door/login]
@@ -117,7 +122,8 @@ FORMAT: 1A
 
             {
                 "code": 400,
-                "data": "请求参数错误"
+                "message": "请求参数错误",
+                "data": "错误详情"
             }
 
 + Response 403 (application/json)
@@ -125,7 +131,8 @@ FORMAT: 1A
 
             {
                 "code": 403,
-                "data": "用户名或密码错误"
+                "message": "用户名或密码错误",
+                "data": ""
             }
 
 ## 用户登出 [POST /door/logout]
@@ -157,7 +164,8 @@ FORMAT: 1A
 
             {
                 "code": 40102,
-                "data": "登录超时，请重新登录"
+                "message": "登录超时，请重新登录",
+                "data": ""
             }
 
 + Response 401 (application/json)
@@ -165,7 +173,8 @@ FORMAT: 1A
 
             {
                 "code": 40103,
-                "data": "登录凭证错误，请重新登录"
+                "message": "登录凭证错误，请重新登录",
+                "data": ""
             }
 
 ## 发送重置密码验证码 [POST /door/forgot]
@@ -193,7 +202,8 @@ FORMAT: 1A
 
             {
                 "code": 400,
-                "data": "请求参数错误"
+                "message": "请求参数错误",
+                "data": "错误详情"
             }
 
 + Response 403 (application/json)
@@ -201,7 +211,8 @@ FORMAT: 1A
 
             {
                 "code": 403,
-                "data": "未注册的邮箱或手机号"
+                "message": "未注册的邮箱或手机号",
+                "data": ""
             }
 
 ## 重置密码 [POST /door/reset]
@@ -231,7 +242,8 @@ FORMAT: 1A
 
             {
                 "code": 400,
-                "data": "请求参数错误"
+                "message": "请求参数错误",
+                "data": "错误详情"
             }
 
 + Response 403 (application/json)
@@ -239,7 +251,8 @@ FORMAT: 1A
 
             {
                 "code": 403,
-                "data": "密码重置成功"
+                "message": "密码重置成功",
+                "data": ""
             }
 
 # 番剧相关接口
@@ -268,7 +281,8 @@ FORMAT: 1A
 
             {
                 "code": 40003,
-                "data": "请求参数错误"
+                "message": "请求参数错误",
+                "data": ""
             }
 
 ## 获取新番列表 [GET /bangumi/released]
@@ -314,7 +328,8 @@ FORMAT: 1A
 
             {
                 "code": 40003,
-                "data": "请求参数错误"
+                "message": "请求参数错误",
+                "data": ""
             }
 
 ## 获取番剧详情 [GET /bangumi/${bangumiId}/show]
@@ -338,7 +353,8 @@ FORMAT: 1A
 
             {
                 "code": 40401,
-                "data": "不存在的番剧"
+                "message": "不存在的番剧",
+                "data": ""
             }
 
 ## 获取番剧视频 [GET /bangumi/${bangumiId}/videos]
@@ -361,7 +377,8 @@ FORMAT: 1A
 
             {
                 "code": 40401,
-                "data": "不存在的番剧"
+                "message": "不存在的番剧",
+                "data": ""
             }
 
 ## 关注或取消关注番剧 [POST /bangumi/${bangumiId}/follow]
@@ -385,7 +402,8 @@ FORMAT: 1A
 
             {
                 "code": 40104,
-                "data": "用户认证失败"
+                "message": "用户认证失败",
+                "data": ""
             }
 
 ## 获取关注番剧的用户列表 [POST /bangumi/${bangumiId}/followers]
@@ -458,7 +476,8 @@ FORMAT: 1A
 
             {
                 "code": 40401,
-                "data": "不存在的视频资源"
+                "message": "不存在的视频资源",
+                "data": ""
             }
 
 ## 记录视频播放信息 [GET /video/${videoId}/playing]
@@ -486,7 +505,8 @@ FORMAT: 1A
 
             {
                 "code": 40104,
-                "data": "未登录的用户"
+                "message": "未登录的用户",
+                "data": ""
             }
 
 + Response 403 (application/json)
@@ -494,7 +514,8 @@ FORMAT: 1A
 
             {
                 "code": 40301,
-                "data": "今日已签到"
+                "message": "今日已签到",
+                "data": ""
             }
 
 ## 更新用户资料中的图片 [POST /user/setting/image]
@@ -518,7 +539,8 @@ FORMAT: 1A
 
             {
                 "code": 40003,
-                "data": "请求参数错误"
+                "message": "请求参数错误",
+                "data": ""
             }
 
 + Response 401 (application/json)
@@ -526,7 +548,8 @@ FORMAT: 1A
 
             {
                 "code": 40104,
-                "data": "未登录的用户"
+                "message": "未登录的用户",
+                "data": ""
             }
 
 ## 获取用户页面信息 [POST /user/${userZone}/show]
@@ -550,7 +573,8 @@ FORMAT: 1A
 
             {
                 "code": 40401,
-                "data": "该用户不存在"
+                "message": "该用户不存在",
+                "data": ""
             }
 
 ## 修改用户自己的信息 [POST /user/setting/profile]
@@ -576,7 +600,8 @@ FORMAT: 1A
 
             {
                 "code": 40104,
-                "data": "该用户不存在"
+                "message": "该用户不存在",
+                "data": ""
             }
 
 ## 用去用户关注番剧的列表 [POST /user/${userZone}/followed/bangumi]
@@ -595,7 +620,8 @@ FORMAT: 1A
 
             {
                 "code": 40104,
-                "data": "该用户不存在"
+                "message": "该用户不存在",
+                "data": ""
             }
 
 ## 用户发布的帖子列表 [POST /user/${userZone}/posts/mine]
@@ -622,7 +648,8 @@ FORMAT: 1A
 
             {
                 "code": 40104,
-                "data": "找不到用户"
+                "message": "找不到用户",
+                "data": ""
             }
 
 ## 用户回复的帖子列表 [POST /user/${userZone}/posts/reply]
@@ -649,7 +676,8 @@ FORMAT: 1A
 
             {
                 "code": 40104,
-                "data": "找不到用户"
+                "message": "找不到用户",
+                "data": ""
             }
 
 ## 用户喜欢的帖子列表 [POST /user/${userZone}/posts/mine]
@@ -676,7 +704,8 @@ FORMAT: 1A
 
             {
                 "code": 40104,
-                "data": "找不到用户"
+                "message": "找不到用户",
+                "data": ""
             }
 
 ## 用户收藏的帖子列表 [POST /user/${userZone}/posts/mine]
@@ -703,7 +732,8 @@ FORMAT: 1A
 
             {
                 "code": 40104,
-                "data": "找不到用户"
+                "message": "找不到用户",
+                "data": ""
             }
 
 ## 用户反馈 [POST /user/feedback]
@@ -724,7 +754,8 @@ FORMAT: 1A
 
             {
                 "code": 40003,
-                "data": "请求参数错误"
+                "message": "请求参数错误",
+                "data": ""
             }
 
 ## 用户消息列表 [POST /user/notifications/list]
@@ -751,7 +782,8 @@ FORMAT: 1A
 
             {
                 "code": 40104,
-                "data": "未登录的用户"
+                "message": "未登录的用户",
+                "data": ""
             }
 
 ## 用户未读消息个数 [POST /user/notifications/count]
@@ -770,7 +802,8 @@ FORMAT: 1A
 
             {
                 "code": 40104,
-                "data": "未登录的用户"
+                "message": "未登录的用户",
+                "data": ""
             }
 
 ## 读取某条消息 [POST /user/notifications/read]
@@ -790,7 +823,8 @@ FORMAT: 1A
 
             {
                 "code": 40104,
-                "data": "未登录的用户"
+                "message": "未登录的用户",
+                "data": ""
             }
 
 + Response 404 (application/json)
@@ -798,7 +832,8 @@ FORMAT: 1A
 
             {
                 "code": 40401,
-                "data": "不存在的消息"
+                "message": "不存在的消息",
+                "data": ""
             }
 
 + Response 403 (application/json)
@@ -806,7 +841,8 @@ FORMAT: 1A
 
             {
                 "code": 40301,
-                "data": "没有权限进行操作"
+                "message": "没有权限进行操作",
+                "data": ""
             }
 
 # 帖子相关接口
@@ -841,7 +877,8 @@ FORMAT: 1A
 
             {
                 "code": 40003,
-                "data": "请求参数错误"
+                "message": "请求参数错误",
+                "data": "错误详情"
             }
 
 + Response 401 (application/json)
@@ -849,7 +886,8 @@ FORMAT: 1A
 
             {
                 "code": 40104,
-                "data": "未登录的用户"
+                "message": "未登录的用户",
+                "data": ""
             }
 
 ## 帖子信息 [POST /post/${postId}/show]
@@ -908,7 +946,8 @@ FORMAT: 1A
 
             {
                 "code": 40004,
-                "data": "不是主题帖"
+                "message": "不是主题帖",
+                "data": ""
             }
 
 + Response 404 (application/json)
@@ -916,7 +955,8 @@ FORMAT: 1A
 
             {
                 "code": 40401,
-                "data": "不存在的帖子"
+                "message": "不存在的帖子",
+                "data": ""
             }
 
 ## 回复主题帖 [POST /post/${postId}/reply]
@@ -946,7 +986,8 @@ FORMAT: 1A
 
             {
                 "code": 40003,
-                "data": "请求参数错误"
+                "message": "请求参数错误",
+                "data": "错误详情"
             }
 
 + Response 401 (application/json)
@@ -954,7 +995,8 @@ FORMAT: 1A
 
             {
                 "code": 40104,
-                "data": "未登录的用户"
+                "message": "未登录的用户",
+                "data": ""
             }
 
 + Response 404 (application/json)
@@ -962,7 +1004,8 @@ FORMAT: 1A
 
             {
                 "code": 40401,
-                "data": "不存在的帖子"
+                "message": "不存在的帖子",
+                "data": ""
             }
 
 ## 评论回复贴 [POST /post/${postId}/comment]
@@ -991,7 +1034,8 @@ FORMAT: 1A
 
             {
                 "code": 40003,
-                "data": "请求参数错误"
+                "message": "请求参数错误",
+                "data": "错误详情"
             }
 
 + Response 401 (application/json)
@@ -999,7 +1043,8 @@ FORMAT: 1A
 
             {
                 "code": 40104,
-                "data": "未登录的用户"
+                "message": "未登录的用户",
+                "data": ""
             }
 
 + Response 404 (application/json)
@@ -1007,7 +1052,8 @@ FORMAT: 1A
 
             {
                 "code": 40401,
-                "data": "内容已删除"
+                "message": "内容已删除",
+                "data": ""
             }
 
 ## 获取评论列表 [POST /post/${postId}/comments]
@@ -1033,7 +1079,8 @@ FORMAT: 1A
 
             {
                 "code": 40401,
-                "data": "不存在的帖子"
+                "message": "不存在的帖子",
+                "data": ""
             }
 
 ## 获取给帖子点赞的用户列表 [POST /post/${postId}/likeUsers]
@@ -1060,7 +1107,8 @@ FORMAT: 1A
 
             {
                 "code": 40401,
-                "data": "不存在的帖子"
+                "message": "不存在的帖子",
+                "data": ""
             }
 
 ## 给帖子点赞或取消点赞 [POST /post/${postId}/toggleLike]
@@ -1084,7 +1132,8 @@ FORMAT: 1A
 
             {
                 "code": 40104,
-                "data": "未登录的用户"
+                "message": "未登录的用户",
+                "data": ""
             }
 
 + Response 403 (application/json)
@@ -1092,7 +1141,8 @@ FORMAT: 1A
 
             {
                 "code": 40301,
-                "data": "不能给自己点赞/金币不足/请求错误"
+                "message": "不能给自己点赞/金币不足/请求错误",
+                "data": ""
             }
 
 + Response 404 (application/json)
@@ -1100,7 +1150,8 @@ FORMAT: 1A
 
             {
                 "code": 40401,
-                "data": "内容已删除"
+                "message": "内容已删除",
+                "data": ""
             }
 
 ## 收藏主题帖或取消收藏 [POST /post/${postId}/toggleMark]
@@ -1124,7 +1175,8 @@ FORMAT: 1A
 
             {
                 "code": 40104,
-                "data": "未登录的用户"
+                "message": "未登录的用户",
+                "data": ""
             }
 
 + Response 403 (application/json)
@@ -1132,7 +1184,8 @@ FORMAT: 1A
 
             {
                 "code": 40301,
-                "data": "不能收藏自己的帖子/不是主题帖"
+                "message": "不能收藏自己的帖子/不是主题帖",
+                "data": ""
             }
 
 + Response 404 (application/json)
@@ -1140,7 +1193,8 @@ FORMAT: 1A
 
             {
                 "code": 40401,
-                "data": "不存在的帖子"
+                "message": "不存在的帖子",
+                "data": ""
             }
 
 ## 删除帖子 [POST /post/${postId}/deletePost]
@@ -1158,7 +1212,8 @@ FORMAT: 1A
 
             {
                 "code": 40104,
-                "data": "未登录的用户"
+                "message": "未登录的用户",
+                "data": ""
             }
 
 + Response 403 (application/json)
@@ -1166,7 +1221,8 @@ FORMAT: 1A
 
             {
                 "code": 40301,
-                "data": "权限不足"
+                "message": "权限不足",
+                "data": ""
             }
 
 + Response 404 (application/json)
@@ -1174,7 +1230,8 @@ FORMAT: 1A
 
             {
                 "code": 40401,
-                "data": "不存在的帖子"
+                "message": "不存在的帖子",
+                "data": ""
             }
 
 ## 删除评论 [POST /post/${postId}/deleteComment]
@@ -1197,7 +1254,8 @@ FORMAT: 1A
 
             {
                 "code": 40104,
-                "data": "未登录的用户"
+                "message": "未登录的用户",
+                "data": ""
             }
 
 + Response 403 (application/json)
@@ -1205,7 +1263,8 @@ FORMAT: 1A
 
             {
                 "code": 40301,
-                "data": "权限不足"
+                "message": "权限不足",
+                "data": ""
             }
 
 + Response 404 (application/json)
@@ -1213,7 +1272,8 @@ FORMAT: 1A
 
             {
                 "code": 40401,
-                "data": "不存在的评论"
+                "message": "不存在的评论",
+                "data": ""
             }
 
 # 图片相关接口
@@ -1268,7 +1328,8 @@ FORMAT: 1A
 
             {
                 "code": 40104,
-                "data": "未登录的用户"
+                "message": "未登录的用户",
+                "data": ""
             }
 
 # 排行相关接口
