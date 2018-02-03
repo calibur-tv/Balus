@@ -144,18 +144,6 @@ FORMAT: 1A
 
             Authorization: Bearer JWT-Token
 
-+ Request (application/json)
-    + Body
-
-            {
-                "method": "phone|email",
-                "nickname": "用户昵称",
-                "access": "账号",
-                "secret": "密码",
-                "authCode": "短信或邮箱验证码",
-                "inviteCode": "邀请码"
-            }
-
 + Response 200 (application/json)
     + Body
 
@@ -168,8 +156,16 @@ FORMAT: 1A
     + Body
 
             {
-                "code": 401,
-                "data": "未登录的用户"
+                "code": 40102,
+                "data": "登录超时，请重新登录"
+            }
+
++ Response 401 (application/json)
+    + Body
+
+            {
+                "code": 40103,
+                "data": "登录凭证错误，请重新登录"
             }
 
 ## 发送重置密码验证码 [POST /door/forgot]
