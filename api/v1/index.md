@@ -2,6 +2,22 @@ FORMAT: 1A
 
 # calibur.tv API docs
 
+# 搜索相关接口
+
+## 重置密码 [POST /search/index]
+
+
++ Parameters
+    + q: (string, required) - 查询关键字
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "code": 0,
+                "data": "番剧相对链接或空字符串"
+            }
+
 # 认证相关接口
 
 ## 发送验证码 [POST /door/send]
