@@ -2,37 +2,21 @@ FORMAT: 1A
 
 # calibur.tv API docs
 
-# 搜索相关接口
+# 用户认证相关接口
 
-## 重置密码 [POST /search/index]
-
-
-+ Parameters
-    + q: (string, required) - 查询关键字
-
-+ Response 200 (application/json)
-    + Body
-
-            {
-                "code": 0,
-                "data": "番剧相对链接或空字符串"
-            }
-
-# 认证相关接口
-
-## 发送验证码 [POST /door/send]
-
+## 发送手机验证码 [POST /door/message]
+一个通用的接口，通过 `type` 和 `phone_number` 发送手机验证码.
+目前支持 `type` 为：
+1. `sign_up`，注册时调用
+2. `forgot_password`，找回密码时使用
 
 + Request (application/json)
     + Body
 
             {
-                "method": "phone|email",
-                "access": "账号",
-                "nickname": "用户昵称",
-                "mustNew": "必须是未注册的用户",
-                "mustOld": "必须是已注册的用户",
-                "geetest": "Geetest验证码对象"
+                "type": "上面的某个type",
+                "phone_number": "只支持11位的手机号",
+                "geetest": "Geetest认证对象"
             }
 
 + Response 201 (application/json)
@@ -40,7 +24,23 @@ FORMAT: 1A
 
             {
                 "code": 0,
-                "data": "邮件或短信发送成功"
+                "data": "短信已发送"
+            }
+
++ Response 400 (application/json)
+    + Body
+
+            {
+                "code": 40001,
+                "message": "未经过图形验证码认证"
+            }
+
++ Response 401 (application/json)
+    + Body
+
+            {
+                "code": 40100,
+                "message": "图形验证码认证失败"
             }
 
 + Response 400 (application/json)
@@ -48,33 +48,56 @@ FORMAT: 1A
 
             {
                 "code": 40003,
-                "message": "请求参数错误",
-                "data": "错误详情"
+                "message": "各种错误"
+            }
+
++ Response 503 (application/json)
+    + Body
+
+            {
+                "code": 50310,
+                "message": "短信服务暂不可用或请求过于频繁"
+            }
+
+## 用户注册 [POST /door/register]
+目前仅支持使用手机号注册
+
++ Request (application/json)
+    + Body
+
+            {
+                "access": "手机号",
+                "secret": "6至16位的密码",
+                "nickname": "昵称，只能包含汉字、数字和字母",
+                "authCode": "6位数字的短信验证码"
+            }
+
++ Response 201 (application/json)
+    + Body
+
+            {
+                "code": 0,
+                "data": "JWT-Token"
             }
 
 + Response 400 (application/json)
     + Body
 
             {
-                "code": 40004,
-                "message": "已注册或未注册的账号",
-                "data": ""
+                "code": 40003,
+                "message": "各种错误"
             }
 
-## 用户注册 [POST /door/register]
-
+## 用户登录 [POST /door/login]
+目前仅支持手机号和密码登录
 
 + Request (application/json)
     + Body
 
             {
-                "method": "phone|email",
-                "nickname": "用户昵称",
-                "access": "账号",
+                "access": "手机号",
                 "secret": "密码",
-                "authCode": "短信或邮箱验证码",
-                "inviteCode": "邀请码",
-                "geetest": "Geetest验证码对象"
+                "geetest": "Geetest认证对象"
             }
 
 + Response 200 (application/json)
@@ -89,66 +112,24 @@ FORMAT: 1A
     + Body
 
             {
-                "code": 400,
-                "message": "请求参数错误",
-                "data": "错误详情"
+                "code": 40001,
+                "message": "未经过图形验证码认证"
             }
 
 + Response 401 (application/json)
     + Body
 
             {
-                "code": 401,
-                "message": "验证码过期，请重新获取",
-                "data": ""
-            }
-
-+ Response 403 (application/json)
-    + Body
-
-            {
-                "code": 403,
-                "message": "该手机或邮箱已绑定另外一个账号",
-                "data": ""
-            }
-
-## 用户登录 [POST /door/login]
-
-
-+ Request (application/json)
-    + Body
-
-            {
-                "method": "phone|email",
-                "access": "账号",
-                "secret": "密码",
-                "geetest": "Geetest验证码对象"
-            }
-
-+ Response 200 (application/json)
-    + Body
-
-            {
-                "code": 0,
-                "data": "JWT-Token"
+                "code": 40100,
+                "message": "图形验证码认证失败"
             }
 
 + Response 400 (application/json)
     + Body
 
             {
-                "code": 400,
-                "message": "请求参数错误",
-                "data": "错误详情"
-            }
-
-+ Response 403 (application/json)
-    + Body
-
-            {
-                "code": 403,
-                "message": "用户名或密码错误",
-                "data": ""
+                "code": 40003,
+                "message": "各种错误"
             }
 
 ## 用户登出 [POST /door/logout]
@@ -159,8 +140,10 @@ FORMAT: 1A
 
             Authorization: Bearer JWT-Token
 
++ Response 204 (application/json)
+
 ## 获取用户信息 [POST /door/user]
-每次启动应用或登录/注册成功后调用
+每次`启动应用`、`登录`、`注册`成功后调用
 
 + Request (application/json)
     + Headers
@@ -179,96 +162,8 @@ FORMAT: 1A
     + Body
 
             {
-                "code": 40102,
-                "message": "登录超时，请重新登录",
-                "data": ""
-            }
-
-+ Response 401 (application/json)
-    + Body
-
-            {
-                "code": 40103,
-                "message": "登录凭证错误，请重新登录",
-                "data": ""
-            }
-
-## 发送重置密码验证码 [POST /door/forgot]
-
-
-+ Request (application/json)
-    + Body
-
-            {
-                "method": "phone|email",
-                "access": "账号",
-                "geetest": "Geetest验证码对象"
-            }
-
-+ Response 200 (application/json)
-    + Body
-
-            {
-                "code": 0,
-                "data": "短信或邮件已发送"
-            }
-
-+ Response 400 (application/json)
-    + Body
-
-            {
-                "code": 400,
-                "message": "请求参数错误",
-                "data": "错误详情"
-            }
-
-+ Response 403 (application/json)
-    + Body
-
-            {
-                "code": 403,
-                "message": "未注册的邮箱或手机号",
-                "data": ""
-            }
-
-## 重置密码 [POST /door/reset]
-
-
-+ Request (application/json)
-    + Body
-
-            {
-                "method": "phone|email",
-                "access": "账号",
-                "secret": "密码",
-                "authCode": "短信或邮箱验证码",
-                "geetest": "Geetest验证码对象"
-            }
-
-+ Response 200 (application/json)
-    + Body
-
-            {
-                "code": 0,
-                "data": "短信或邮件已发送"
-            }
-
-+ Response 400 (application/json)
-    + Body
-
-            {
-                "code": 400,
-                "message": "请求参数错误",
-                "data": "错误详情"
-            }
-
-+ Response 403 (application/json)
-    + Body
-
-            {
-                "code": 403,
-                "message": "密码重置成功",
-                "data": ""
+                "code": 40104,
+                "message": "未登录的用户"
             }
 
 # 番剧相关接口
@@ -297,7 +192,7 @@ FORMAT: 1A
 
             {
                 "code": 40003,
-                "message": "请求参数错误",
+                "message": "没有传年份",
                 "data": ""
             }
 
@@ -464,6 +359,28 @@ FORMAT: 1A
                     "list": "番剧列表",
                     "total": "总数"
                 }
+            }
+
+# 动漫角色相关接口
+
+## 获取番剧角色列表 [GET /bangumi/${bangumiId}/roles]
+
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "code": 0,
+                "data": "角色列表"
+            }
+
++ Response 404 (application/json)
+    + Body
+
+            {
+                "code": 40003,
+                "message": "不存在的番剧",
+                "data": ""
             }
 
 # 视频相关接口
@@ -1024,81 +941,6 @@ FORMAT: 1A
                 "data": ""
             }
 
-## 评论回复贴 [POST /post/${postId}/comment]
-
-
-+ Request (application/json)
-    + Headers
-
-            Authorization: Bearer JWT-Token
-    + Body
-
-            {
-                "content": "回复内容，不超过50个字"
-            }
-
-+ Response 201 (application/json)
-    + Body
-
-            {
-                "code": 0,
-                "data": "评论对象"
-            }
-
-+ Response 400 (application/json)
-    + Body
-
-            {
-                "code": 40003,
-                "message": "请求参数错误",
-                "data": "错误详情"
-            }
-
-+ Response 401 (application/json)
-    + Body
-
-            {
-                "code": 40104,
-                "message": "未登录的用户",
-                "data": ""
-            }
-
-+ Response 404 (application/json)
-    + Body
-
-            {
-                "code": 40401,
-                "message": "内容已删除",
-                "data": ""
-            }
-
-## 获取评论列表 [POST /post/${postId}/comments]
-
-
-+ Request (application/json)
-    + Body
-
-            {
-                "seenIds": "看过的commentIds, 用','分割的字符串"
-            }
-
-+ Response 200 (application/json)
-    + Body
-
-            {
-                "code": 0,
-                "data": "评论列表"
-            }
-
-+ Response 404 (application/json)
-    + Body
-
-            {
-                "code": 40401,
-                "message": "不存在的帖子",
-                "data": ""
-            }
-
 ## 获取给帖子点赞的用户列表 [POST /post/${postId}/likeUsers]
 
 
@@ -1250,46 +1092,52 @@ FORMAT: 1A
                 "data": ""
             }
 
-## 删除评论 [POST /post/${postId}/deleteComment]
+## 最新帖子列表 [POST /trending/post/new]
 
 
-+ Request (application/json)
++ Request A (application/json)
     + Headers
 
             Authorization: Bearer JWT-Token
     + Body
 
             {
-                "commentId": "评论的id"
+                "take": "获取数量",
+                "seenIds": "看过的postIds, 用','号分割的字符串"
             }
 
-+ Response 204 (application/json)
-
-+ Response 401 (application/json)
++ Response 200 (application/json)
     + Body
 
             {
-                "code": 40104,
-                "message": "未登录的用户",
-                "data": ""
+                "code": 0,
+                "0": {
+                    "data": "帖子列表"
+                }
             }
 
-+ Response 403 (application/json)
+## 热门帖子列表 [POST /trending/post/hot]
+
+
++ Request A (application/json)
+    + Headers
+
+            Authorization: Bearer JWT-Token
     + Body
 
             {
-                "code": 40301,
-                "message": "权限不足",
-                "data": ""
+                "take": "获取数量",
+                "seenIds": "看过的postIds, 用','号分割的字符串"
             }
 
-+ Response 404 (application/json)
++ Response 200 (application/json)
     + Body
 
             {
-                "code": 40401,
-                "message": "不存在的评论",
-                "data": ""
+                "code": 0,
+                "0": {
+                    "data": "帖子列表"
+                }
             }
 
 # 图片相关接口
@@ -1346,54 +1194,4 @@ FORMAT: 1A
                 "code": 40104,
                 "message": "未登录的用户",
                 "data": ""
-            }
-
-# 排行相关接口
-
-## 最新帖子列表 [POST /trending/post/new]
-
-
-+ Request A (application/json)
-    + Headers
-
-            Authorization: Bearer JWT-Token
-    + Body
-
-            {
-                "take": "获取数量",
-                "seenIds": "看过的postIds, 用','号分割的字符串"
-            }
-
-+ Response 200 (application/json)
-    + Body
-
-            {
-                "code": 0,
-                "0": {
-                    "data": "帖子列表"
-                }
-            }
-
-## 热门帖子列表 [POST /trending/post/hot]
-
-
-+ Request A (application/json)
-    + Headers
-
-            Authorization: Bearer JWT-Token
-    + Body
-
-            {
-                "take": "获取数量",
-                "seenIds": "看过的postIds, 用','号分割的字符串"
-            }
-
-+ Response 200 (application/json)
-    + Body
-
-            {
-                "code": 0,
-                "0": {
-                    "data": "帖子列表"
-                }
             }
