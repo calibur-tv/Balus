@@ -1092,6 +1092,42 @@ FORMAT: 1A
                 "message": "不存在的帖子|该评论已被删除"
             }
 
+## 最新帖子列表 [GET /post/trending/news]
+
+
++ Parameters
+    + minId: (integer, required) - 看过的帖子里，id 最小的一个
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "code": 0,
+                "data": {
+                    "list": "帖子列表",
+                    "total": "总数",
+                    "noMore": "没有更多了"
+                }
+            }
+
+## 动态帖子列表 [GET /post/trending/active]
+
+
++ Parameters
+    + minId: (integer, required) - 看过的帖子里，id 最小的一个
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "code": 0,
+                "data": {
+                    "list": "帖子列表",
+                    "total": "总数",
+                    "noMore": "没有更多了"
+                }
+            }
+
 ## 热门帖子列表 [GET /post/trending/hot]
 
 
@@ -1103,8 +1139,10 @@ FORMAT: 1A
 
             {
                 "code": 0,
-                "0": {
-                    "data": "帖子列表"
+                "data": {
+                    "list": "帖子列表",
+                    "total": "总数",
+                    "noMore": "没有更多了"
                 }
             }
 
