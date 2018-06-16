@@ -866,44 +866,31 @@ FORMAT: 1A
 
             {
                 "code": 40003,
-                "message": "请求参数错误",
-                "data": "错误详情"
+                "message": "请求参数错误"
             }
 
-## 回复主题帖 [POST /post/`postId`/reply]
+## 帖子详情 [GET /post/`postId`/show]
 
 
 + Parameters
-    + content: (string, required) - 内容，`1000字以内`
-    + images: (array, required) - 图片对象数组
+    + only: (integer, optional) - 是否只看楼主
+        + Default: 0
 
 + Request (application/json)
     + Headers
 
             Authorization: Bearer JWT-Token
 
-+ Response 201 (application/json)
++ Response 200 (application/json)
     + Body
 
             {
                 "code": 0,
-                "data": "帖子对象"
-            }
-
-+ Response 400 (application/json)
-    + Body
-
-            {
-                "code": 40003,
-                "message": "请求参数错误"
-            }
-
-+ Response 401 (application/json)
-    + Body
-
-            {
-                "code": 40104,
-                "message": "未登录的用户"
+                "data": {
+                    "bangumi": "番剧信息",
+                    "user": "作者信息",
+                    "post": "帖子信息"
+                }
             }
 
 + Response 404 (application/json)
@@ -911,7 +898,7 @@ FORMAT: 1A
 
             {
                 "code": 40401,
-                "message": "不存在的帖子"
+                "message": "帖子不存在/番剧不存在/作者不存在"
             }
 
 ## 获取给帖子点赞的用户列表 [POST /post/${postId}/likeUsers]
@@ -1055,43 +1042,6 @@ FORMAT: 1A
                 "message": "不存在的帖子"
             }
 
-## 删除帖子的某一层 [POST /post/`postId`/deleteComment]
-
-
-+ Parameters
-    + commentId: (integer, required) - 楼层帖子的 id
-
-+ Request (application/json)
-    + Headers
-
-            Authorization: Bearer JWT-Token
-
-+ Response 204 (application/json)
-
-+ Response 401 (application/json)
-    + Body
-
-            {
-                "code": 40104,
-                "message": "未登录的用户"
-            }
-
-+ Response 403 (application/json)
-    + Body
-
-            {
-                "code": 40301,
-                "message": "继续操作前请先登录"
-            }
-
-+ Response 404 (application/json)
-    + Body
-
-            {
-                "code": 40401,
-                "message": "不存在的帖子|该评论已被删除"
-            }
-
 ## 最新帖子列表 [GET /post/trending/news]
 
 
@@ -1114,7 +1064,7 @@ FORMAT: 1A
 
 
 + Parameters
-    + minId: (integer, required) - 看过的帖子里，id 最小的一个
+    + seenIds: (string, required) - 看过的帖子的`ids`, 用','号分割的字符串
 
 + Response 200 (application/json)
     + Body
@@ -1148,7 +1098,69 @@ FORMAT: 1A
 
 # 评论相关接口
 
-## 子评论列表 [GET /`type`/comment/`id`/list]
+## 新建主评论 [POST /`type`/comment/`type_id`/create]
+
+
++ Parameters
+    + content: (string, required) - 内容，`1000字以内`
+    + images: (array, required) - 图片对象数组
+
++ Request (application/json)
+    + Headers
+
+            Authorization: Bearer JWT-Token
+
++ Response 201 (application/json)
+    + Body
+
+            {
+                "code": 0,
+                "data": "主评论对象"
+            }
+
++ Response 400 (application/json)
+    + Body
+
+            {
+                "code": 40003,
+                "message": "请求参数错误"
+            }
+
+## 获取主评论列表 [POST /`type`/comment/`type_id`/main/list]
+
+
++ Parameters
+    + type: (string, required) - 上面的某种 type
+    + type_id: (integer, required) - 如果是帖子，则是帖子id
+    + fetchId: (integer, required) - 你通过这个接口获取的评论列表里最后的那个id
+        + Default: 0
+
++ Request (application/json)
+    + Headers
+
+            Authorization: Bearer JWT-Token
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "code": 0,
+                "data": {
+                    "list": "主评论列表",
+                    "total": "总数",
+                    "noMore": "没有更多了"
+                }
+            }
+
++ Response 400 (application/json)
+    + Body
+
+            {
+                "code": 40003,
+                "message": "请求参数错误"
+            }
+
+## 子评论列表 [GET /`type`/comment/`commentId`/sub/list]
 > 一个通用的接口，通过 `type` 和 `commentId` 来获取子评论列表.
 目前支持 `type` 为：
 1. `post`，帖子
@@ -1160,7 +1172,7 @@ FORMAT: 1A
 + Parameters
     + type: (string, required) - 上面的某种 type
     + commentId: (integer, required) - 父评论 id
-    + page: (integer, required) - 页码
+    + maxId: (integer, required) - 该父评论下看过的最大的子评论 id
         + Default: 0
 
 + Response 200 (application/json)
@@ -1168,7 +1180,11 @@ FORMAT: 1A
 
             {
                 "code": 0,
-                "data": "评论列表"
+                "data": {
+                    "list": "评论列表",
+                    "total": "评论总数",
+                    "noMore": "没有更多了"
+                }
             }
 
 + Response 400 (application/json)
@@ -1176,7 +1192,7 @@ FORMAT: 1A
 
             {
                 "code": 40003,
-                "message": "没有页码|错误的类型"
+                "message": "请求参数错误"
             }
 
 + Response 404 (application/json)
@@ -1184,7 +1200,7 @@ FORMAT: 1A
 
             {
                 "code": 40401,
-                "message": "不存在的评论"
+                "message": "不存在的父评论"
             }
 
 ## 回复评论 [POST /`type`/comment/`commentId`/reply]
@@ -1225,7 +1241,7 @@ FORMAT: 1A
                 "message": "内容已删除"
             }
 
-## 删除子评论 [POST /`type`/comment/delete/`commentId`]
+## 删除子评论 [POST /`type`/comment/delete/sub/`commentId`]
 
 
 + Request (application/json)
@@ -1259,7 +1275,65 @@ FORMAT: 1A
                 "message": "继续操作前请先登录"
             }
 
-## 喜欢子评论 [POST /`type`/comment/toggleLike/`commentId`]
+## 删除主评论 [POST /`type`/comment/delete/main/`commentId`]
+
+
++ Request (application/json)
+    + Headers
+
+            Authorization: Bearer JWT-Token
+
++ Response 204 (application/json)
+
++ Response 400 (application/json)
+    + Body
+
+            {
+                "code": 40003,
+                "message": "参数错误"
+            }
+
++ Response 404 (application/json)
+    + Body
+
+            {
+                "code": 40401,
+                "message": "该评论已被删除"
+            }
+
++ Response 403 (application/json)
+    + Body
+
+            {
+                "code": 40301,
+                "message": "继续操作前请先登录"
+            }
+
+## <喜欢/取消喜欢>主评论 [POST /`type`/comment/main/toggleLike/`commentId`]
+
+
++ Request (application/json)
+    + Headers
+
+            Authorization: Bearer JWT-Token
+
++ Response 201 (application/json)
+    + Body
+
+            {
+                "code": 0,
+                "data": "是否已喜欢"
+            }
+
++ Response 400 (application/json)
+    + Body
+
+            {
+                "code": 40003,
+                "message": "参数错误"
+            }
+
+## <喜欢/取消喜欢>子评论 [POST /`type`/comment/sub/toggleLike/`commentId`]
 
 
 + Request (application/json)
